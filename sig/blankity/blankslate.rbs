@@ -1,0 +1,13 @@
+module Blankity
+  class BlankSlate < ::BasicObject
+    # A helper method to also include methods that are defined on `Kernel`
+    def __with_Kernel_method__: (*interned methods) -> self
+
+    # Same as `__with_Kernel_method__`, but adds them to subclasses. This shouldn't
+    # be called on `Blankity::BlankSlate` directly, as that affects subclasses
+    def self.__with_Kernel_method__: (*interned methods) -> self
+
+    # Helper method to create a new `BlankSlate` with a block
+    def self.blank: () { (?) -> void } -> BlankSlate
+  end
+end
