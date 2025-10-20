@@ -39,4 +39,6 @@ module Blankity
       ::Class.new(self, &block).new
     end
   end
+
+  def self.blank(...) = BlankSlate.blank(...)
 end
