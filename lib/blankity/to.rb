@@ -11,6 +11,9 @@ module Blankity
     # - `hash`: Helper to also add `hash` and `eql?` to `methods`, so it can be used as a hash key
     # - `block`: If provided, a block to also run
     def to_helper(to_method, value, methods: [], hash: false, &block)
+      # Convert the value to the expected method
+      value = value.__send__(to_method)
+
       # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
       methods |= %i[hash eql?] if hash
 
@@ -30,16 +33,16 @@ module Blankity
     end
 
     # Create a type which _only_ responds to `.to_i`. See `to_helper` for details.
-    def i(value, ...) = to_helper(:to_i, value.to_i, ...)
+    def i(value, ...) = to_helper(:to_i, ...)
 
     # Create a type which _only_ responds to `.to_int`. See `to_helper` for details.
-    def int(value, ...) = to_helper(:to_int, value.to_int, ...)
+    def int(value, ...) = to_helper(:to_int, ...)
 
     # Create a type which _only_ responds to `.to_s`. See `to_helper` for details.
-    def s(value, ...) = to_helper(:to_s, value.to_s, ...)
+    def s(value, ...) = to_helper(:to_s, ...)
 
     # Create a type which _only_ responds to `.to_str`. See `to_helper` for details.
-    def str(value, ...) = to_helper(:to_str, value.to_str, ...)
+    def str(value, ...) = to_helper(:to_str, ...)
 
     # Create a type which _only_ responds to `.to_a`. See `to_helper` for details.
     #
@@ -107,7 +110,7 @@ module Blankity
     def regexp(...) = to_helper(:to_regexp, ...)
 
     # Create a type which _only_ responds to `.to_path`. See `to_helper` for details.
-    def path(...) = to_helper(:to_path, ...)
+    def path(value, ...) = to_helper(:to_path, defined?(value.to_path) ? value.to_path : String(value), ...)
 
     # Create a type which _only_ responds to `.to_io`. See `to_helper` for details.
     def io(...) = to_helper(:to_io, ...)

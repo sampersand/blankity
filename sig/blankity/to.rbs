@@ -6,72 +6,78 @@ module Blankity::To
   # - `hash`: Helper to also add `hash` and `eql?` to `methods`, so it can be used as a hash key
   # - `kernel_methods`: Optional list of methods from `Kernel` to also define
   # - `block`: If provided, a block to also run
-  def self?.to_helper: (untyped to_method, untyped value, ?methods: untyped, ?kernel_methods: untyped, ?hash: bool) { (?) -> untyped } -> untyped
+  def self?.to_helper: (
+    interned to_method,
+    untyped value,
+    ?methods: Array[interned],
+    ?hash: bool
+  ) ?{ () [self: Blankity::BlankSlate] -> void } -> untyped
 
   # Create a type which _only_ responds to `.to_i`. See `to_helper` for details.
-  def self?.i: (Integer value, **untyped) ?{ (?) -> void } -> _ToI
+  def self?.i: (_ToI value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToI
 
   # Create a type which _only_ responds to `.to_int`. See `to_helper` for details.
-  def self?.int: (Integer value, **untyped) ?{ (?) -> void } -> _ToInt
+  def self?.int: (_ToInt value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToInt
 
   # Create a type which _only_ responds to `.to_s`. See `to_helper` for details.
-  def self?.s: (String value, **untyped) ?{ (?) -> void } -> _ToS
+  def self?.s: (_ToS value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToS
 
   # Create a type which _only_ responds to `.to_str`. See `to_helper` for details.
-  def self?.str: (String value, **untyped) ?{ (?) -> void } -> _ToStr
+  def self?.str: (_ToStr value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToStr
 
   # Create a type which _only_ responds to `.to_a`. See `to_helper` for details.
   #
   # This supports `a(1, 2, 3)` as a convenient shorthand for `a([1, 2, 3])`. To
   # create a `.to_a` that returns an array containing just an array, use `a([array])`.
-  def self?.a: [T] (array[T] ary, **untyped kw) { (?) -> void } -> _ToA[T]
-             | [T] (*T ary, **untyped kw) { (?) -> void } -> _ToA[T]
+  def self?.a: [T] (_ToA[T] ary, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToA[T]
+             | [T] (*T elements, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToA[T]
 
   # Create a type which _only_ responds to `.to_ary`. See `to_helper` for details.
   #
   # This supports `ary(1, 2, 3)` as a convenient shorthand for `ary([1, 2, 3])`. To
   # create a `.to_ary` that returns an array containing just an array, use `ary([array])`.
-  def self?.ary: [T] (array[T] ary, **untyped kw) { (?) -> void } -> _ToAry[T]
-               | [T] (*T ary, **untyped kw) { (?) -> void } -> _ToAry[T]
+  def self?.ary: [T] (_ToAry[T] ary, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToAry[T]
+               | [T] (*T elements, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToAry[T]
 
   # Create a type which _only_ responds to `.to_h`. See `to_helper` for details.
   #
   # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
   # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
   # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
-  def self?.h: [K, V](Hash[K, V] hash) { (?) -> void } -> _ToH[K, V]
-             | (?untyped? hash, **untyped kw) { (?) -> void } -> untyped
+  def self?.h: [K, V] (_ToH[K, V] hash, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToH[K, V]
+             | [V] (**V values) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToH[Symbol, V]
 
   # Create a type which _only_ responds to `.to_hash`. See `to_helper` for details.
   #
   # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
   # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
   # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
-  def self?.hash: (?untyped? hash, **untyped kw) { (?) -> void } -> untyped
+  def self?.hash: [K, V] (_ToHash[K, V] hash, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToHash[K, V]
+                | [V] (**V values) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToHash[Symbol, V]
 
   # Create a type which _only_ responds to `.to_sym`. See `to_helper` for details.
-  def self?.sym: (Symbol value, **untyped) ?{ (?) -> void } -> _ToSym
+  def self?.sym: (_ToSym value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToSym
 
   # Create a type which _only_ responds to `.to_r`. See `to_helper` for details.
-  def self?.r: (Rational value, **untyped) ?{ (?) -> void } -> _ToR
+  def self?.r: (_ToR value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToR
 
   # Create a type which _only_ responds to `.to_c`. See `to_helper` for details.
-  def self?.c: (Complex value, **untyped) ?{ (?) -> void } -> _ToC
+  def self?.c: (_ToC value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToC
 
   # Create a type which _only_ responds to `.to_f`. See `to_helper` for details.
-  def self?.f: (Float value, **untyped) ?{ (?) -> void } -> _ToF
+  def self?.f: (_ToF value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToF
 
   # Create a type which _only_ responds to `.to_regexp`. See `to_helper` for details.
-  def self?.regexp: (Regexp value, **untyped) ?{ (?) -> void } -> Regexp::_ToRegexp
+  def self?.regexp: (Regexp::_ToRegexp value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> Regexp::_ToRegexp
 
   # Create a type which _only_ responds to `.to_path`. See `to_helper` for details.
-  def self?.path: (String value, **untyped) ?{ (?) -> void } -> _ToPath
+  def self?.path: (path value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToPath
 
   # Create a type which _only_ responds to `.to_io`. See `to_helper` for details.
-  def self?.io: (IO value, **untyped) ?{ (?) -> void } -> _ToIO
+  def self?.io: (_ToIO value, ?methods: Array[interned], ?hash: bool) ?{ () [self: Blankity::BlankSlate] -> void } -> _ToIO
 
   # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
   # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
   # `to_helper` for details.
-  def self?.range: [T] (T? begin_, T? end_, ?bool exclude_end, ?methods: untyped, ?kernel_methods: untyped, ?hash: bool) { (?) -> void } -> _Range[T]
+  def self?.range: [T] (T? begin_, T? end_, ?bool exclude_end) ?{ () [self: Blankity::BlankSlate] -> void } -> _Range[T]
 end
