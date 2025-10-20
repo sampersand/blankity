@@ -11,9 +11,6 @@ module Blankity
     # - `hash`: Helper to also add `hash` and `eql?` to `methods`, so it can be used as a hash key
     # - `block`: If provided, a block to also run
     def to_helper(to_method, value, methods: [], hash: false, &block)
-      # Convert the value to the expected method
-      value = value.__send__(to_method)
-
       # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
       methods |= %i[hash eql?] if hash
 
@@ -33,26 +30,34 @@ module Blankity
     end
 
     # Create a type which _only_ responds to `.to_i`. See `to_helper` for details.
-    def i(value, ...) = to_helper(:to_i, ...)
+    def i(value, ...)
+      to_helper(:to_i, value.to_i, ...)
+    end
 
     # Create a type which _only_ responds to `.to_int`. See `to_helper` for details.
-    def int(value, ...) = to_helper(:to_int, ...)
+    def int(value, ...)
+      to_helper(:to_int, value.to_int, ...)
+    end
 
     # Create a type which _only_ responds to `.to_s`. See `to_helper` for details.
-    def s(value, ...) = to_helper(:to_s, ...)
+    def s(value, ...)
+      to_helper(:to_s, value.to_s, ...)
+    end
 
     # Create a type which _only_ responds to `.to_str`. See `to_helper` for details.
-    def str(value, ...) = to_helper(:to_str, ...)
+    def str(value, ...)
+      to_helper(:to_str, value.to_str, ...)
+    end
 
     # Create a type which _only_ responds to `.to_a`. See `to_helper` for details.
     #
     # This supports `a(1, 2, 3)` as a convenient shorthand for `a([1, 2, 3])`. To
     # create a `.to_a` that returns an array containing just an array, just use `a([array])`.
-    def a(*array, **, &)
-      if array.length == 1
-        to_helper(:to_a, Array(array[0]), **, &)
+    def a(*elements, **, &)
+      if elements.length == 1
+        to_helper(:to_a, Array(elements[0]), **, &)
       else
-        to_helper(:to_a, array, **, &)
+        to_helper(:to_a, elements, **, &)
       end
     end
 
@@ -60,11 +65,11 @@ module Blankity
     #
     # This supports `ary(1, 2, 3)` as a convenient shorthand for `ary([1, 2, 3])`. To
     # create a `.to_ary` that returns an array containing just an array, use `ary([array])`.
-    def ary(*array, **, &)
-      if array.length == 1
-        to_helper(:to_ary, Array(array[0]), **, &)
+    def ary(*elements, **, &)
+      if elements.length == 1
+        to_helper(:to_ary, Array(elements[0]), **, &)
       else
-        to_helper(:to_ary, array, **, &)
+        to_helper(:to_ary, elements, **, &)
       end
     end
 
@@ -77,7 +82,7 @@ module Blankity
       if nohash
         to_helper(:to_h, {**}, &)
       else
-        to_helper(:to_h, hash, **, &)
+        to_helper(:to_h, hash.to_h, **, &)
       end
     end
 
@@ -90,30 +95,44 @@ module Blankity
       if nohash
         to_helper(:to_hash, {**}, &)
       else
-        to_helper(:to_hash, hash, **, &)
+        to_helper(:to_hash, hash.to_hash, **, &)
       end
     end
 
     # Create a type which _only_ responds to `.to_sym`. See `to_helper` for details.
-    def sym(...) = to_helper(:to_sym, ...)
+    def sym(value, ...)
+      to_helper(:to_sym, value.to_sym, ...)
+    end
 
     # Create a type which _only_ responds to `.to_r`. See `to_helper` for details.
-    def r(...) = to_helper(:to_r, ...)
+    def r(value, ...)
+      to_helper(:to_r, value.to_r, ...)
+    end
 
     # Create a type which _only_ responds to `.to_c`. See `to_helper` for details.
-    def c(...) = to_helper(:to_c, ...)
+    def c(value, ...)
+      to_helper(:to_c, value.to_c, ...)
+    end
 
     # Create a type which _only_ responds to `.to_f`. See `to_helper` for details.
-    def f(...) = to_helper(:to_f, ...)
+    def f(value, ...)
+      to_helper(:to_f, value.to_f, ...)
+    end
 
     # Create a type which _only_ responds to `.to_regexp`. See `to_helper` for details.
-    def regexp(...) = to_helper(:to_regexp, ...)
+    def regexp(value, ...)
+      to_helper(:to_regexp, value.to_regexp, ...)
+    end
 
     # Create a type which _only_ responds to `.to_path`. See `to_helper` for details.
-    def path(value, ...) = to_helper(:to_path, defined?(value.to_path) ? value.to_path : String(value), ...)
+    def path(value, ...)
+      to_helper(:to_path, defined?(value.to_path) ? value.to_path : String(value), ...)
+    end
 
     # Create a type which _only_ responds to `.to_io`. See `to_helper` for details.
-    def io(...) = to_helper(:to_io, ...)
+    def io(value, ...)
+      to_helper(:to_io, value.to_io, ...)
+    end
 
     # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
     # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
