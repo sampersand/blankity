@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+# rbs_inline: enabled
 
 module Blankity
   # A "blank slate" class which removes _all_ methods (from `BasicObject`) other than the "required"
   # ones of `__send__` and `__id__`.
-  class BlankSlate < BasicObject
+  class Blank < BasicObject
     # Remove every method except for `__send__` and `__id__`
     instance_methods.each do |name|
       undef_method(name) unless name == :__send__ || name == :__id__
@@ -21,10 +22,10 @@ module Blankity
     end
 
     # Same as `__with_Object_methods__`, but adds them to subclasses. This shouldn't
-    # be called on `Blankity::BlankSlate` directly, as that affects subclasses
+    # be called on `Blankity::Blank` directly, as that affects subclasses
     def self.__with_Object_methods__(*methods)
-      if ::Blankity::BlankSlate.equal?(self)
-        raise ArgumentError, 'Cannot call `__with_Object_methods__` on BlankSlate, as that will affect all blank slates'
+      if ::Blankity::Blank.equal?(self)
+        raise ArgumentError, 'Cannot call `__with_Object_methods__` on Blank, as that will affect all blank slates'
       end
 
       methods.each do |method|
@@ -34,11 +35,11 @@ module Blankity
       self
     end
 
-    # Helper method to create a new `BlankSlate` with a block
+    # Helper method to create a new `Blank` with a block
     def self.blank(&block)
       ::Class.new(self, &block).new
     end
   end
 
-  def self.blank(...) = BlankSlate.blank(...)
+  def self.blank(...) = Blank.blank(...)
 end

@@ -1,0 +1,19 @@
+# Generated from lib/blankity/blank.rb with RBS::Inline
+
+module Blankity
+  # A "blank slate" class which removes _all_ methods (from `BasicObject`) other than the "required"
+  # ones of `__send__` and `__id__`.
+  class Blank < BasicObject
+    # A helper method to define some `Kernel`methods on `self`
+    def __with_Object_methods__: (*untyped methods) -> untyped
+
+    # Same as `__with_Object_methods__`, but adds them to subclasses. This shouldn't
+    # be called on `Blankity::Blank` directly, as that affects subclasses
+    def self.__with_Object_methods__: (*untyped methods) -> untyped
+
+    # Helper method to create a new `Blank` with a block
+    def self.blank: () ?{ (?) -> untyped } -> untyped
+  end
+
+  def self.blank: () -> untyped
+end
