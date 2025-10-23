@@ -6,7 +6,7 @@ module Blankity
   # builtin functionality. (For example, without +singleton_method_defined+, you can't actually
   # define singleton methods _at all_.)
   #
-  # @see Blank for a type which doesn't undefine these critical builtin methods
+  # @see Blank
   class AbsolutelyBlank < BasicObject
     # We have to disable warnings for just this block, as Ruby warns for `undef`ing some methods
     previous_warning, $-w = $-w, nil
