@@ -80,7 +80,11 @@ module Blankity
     # @rbs (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
     def self?.proc: (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
 
+    # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
+    # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
+    # `to_helper` for details.
+    #
     # @rbs [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
-    def self?.range: [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
+    def self?.range: [R] (R?, R?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[R]] -> void } -> Range[R]
   end
 end

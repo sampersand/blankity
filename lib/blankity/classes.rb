@@ -167,7 +167,7 @@ module Blankity
     # @rbs @end: T?
     # @rbs @exclude_end: bool
 
-    # @rbs (T?, ?T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(begin_, end_, exclude_end = false, ...)
       @__begin__ = begin_
       @__end__ = end_

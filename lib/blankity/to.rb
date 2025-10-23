@@ -75,7 +75,7 @@ module Blankity
       if nohash
         ToHash.new({**}, &)
       else
-        ToHash.new(hash.to_hash, **, &)
+        ToHash.new((__any__ = hash).to_hash, **, &)
       end
     end
 
@@ -109,7 +109,7 @@ module Blankity
           raise ArgumentError, 'if an explicit proc is omitted, a block must be passed'
         end
 
-        ToProc.new(block, **)
+        ToProc.new(__any__ = block, **)
       else
         ToProc.new(proc.to_proc, **, &block)
       end
@@ -118,7 +118,7 @@ module Blankity
     # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
     # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
     # `to_helper` for details.
-
+    #
     # @rbs [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
     def range(begin_, end_, exclude_end = false, ...)
       Range.new(begin_, end_, exclude_end, ...)

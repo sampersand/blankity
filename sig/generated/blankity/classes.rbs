@@ -157,16 +157,16 @@ module Blankity
   # A Class which defines `#begin`, `#end`, and `#exclude_end?`. It implements RBS's +_Range[T]+
   # interface.
   #
-  # @rbs generic out T -- Type to iterate over
-  class Range[out T] < Blank
+  # @rbs generic T -- Type to iterate over
+  class Range[T] < Blank
     @begin: T?
 
     @end: T?
 
     @exclude_end: bool
 
-    # @rbs (T?, ?T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-    def initialize: (T?, ?T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
 
     # : () -> T?
     def begin: () -> T?
