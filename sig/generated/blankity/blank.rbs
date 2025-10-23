@@ -15,27 +15,19 @@ module Blankity
   # to define singleton methods on instances that {Object} defines.
   class Blank < BasicObject
     # Declare these as constants so we don't constantly look them up.
-    DEFINE_SINGLETON_METHOD: untyped
+    DEFINE_SINGLETON_METHOD: UnboundMethod
 
-    INSTANCE_EXEC: untyped
+    INSTANCE_EXEC: UnboundMethod
 
-    # Helper method to create a new instances
+    # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
-    # @param object_methods [Array[interned]] kernel methods to define on the instance.
-    # @param block [Proc] if provided, executed via +instance_exec+ on the instance
+    # @param methods [Array[interned]] a list of {Object} methods to define on +self+.
+    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
+    #                    type can be used as a key in +Hash+es
+    # @yield [] if a block is given, runs it via +instance_exec+.
     #
-    # === Example
-    #   # Make a empty instance
-    #   Blankity::Blank.blank
-    #
-    #   # Include `Object#inspect`, so we can print with `p`
-    #   p Blankity::Blank.blank(object_methods: %i[inspect])
-    #
-    #   # Define a singleton method
-    #   p Blankity::Blank.blank{ def cool?(other) = other == 3 }.cool? 3 #=> true
-    #
-    # @rbs (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
-    def self.blank: (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
+    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
+    def initialize: (?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
 
     # A helper method to define {Object} instance methods on +self+
     #
@@ -59,6 +51,6 @@ module Blankity
 
   # Shorthand helper for {Blankity::Blank.blank}. See it for details
   #
-  # @rbs (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
-  def self.blank: (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
+  # @rbs (?methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
+  def self.blank: (?methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
 end

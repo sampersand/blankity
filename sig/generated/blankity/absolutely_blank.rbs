@@ -1,4 +1,4 @@
-# rbs_inline: enabled
+# Generated from lib/blankity/absolutely_blank.rb with RBS::Inline
 
 module Blankity
   # A Class that has _no_ instance methods on it whatsoever.
@@ -10,14 +10,5 @@ module Blankity
   #
   # @see Blank
   class AbsolutelyBlank < BasicObject
-    # We have to disable warnings for just this block, as Ruby warns for `undef`ing some methods
-    previous_warning, $-w = $-w, nil
-
-    (instance_methods + private_instance_methods).each do |name|
-      undef_method(name)
-    end
-
-    # Set warnings to what they used to be
-    $-w = previous_warning
   end
 end

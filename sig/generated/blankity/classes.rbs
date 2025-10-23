@@ -8,13 +8,10 @@ module Blankity
   class BlankValue[T] < Blank
     @__value__: T
 
-    DEFINE_SINGLETON_METHOD: untyped
-
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
     # @param value [T] the backing value for this class
-    # @param methods [Array[interned]] a list of methods to define on +self+ that will just forward
-    #                                  everything to +value.<method>+
+    # @param methods [Array[interned]] a list of {OBject} methods to define on +self+.
     # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +instance_exec+.

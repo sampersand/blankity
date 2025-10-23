@@ -9,14 +9,10 @@ module Blankity
   class BlankValue < Blank
     # @rbs @__value__: T
 
-    DEFINE_SINGLETON_METHOD = ::Kernel.instance_method(:define_singleton_method)
-    private_constant :DEFINE_SINGLETON_METHOD
-
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
     # @param value [T] the backing value for this class
-    # @param methods [Array[interned]] a list of methods to define on +self+ that will just forward
-    #                                  everything to +value.<method>+
+    # @param methods [Array[interned]] a list of {OBject} methods to define on +self+.
     # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +instance_exec+.
@@ -25,16 +21,7 @@ module Blankity
     def initialize(value, methods: [], hash: false, &block)
       @__value__ = value
 
-      # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
-      methods |= %i[hash eql?] if hash
-
-      methods.each do |method|
-        # We can use `.method` instead of querying `Kernel` because all types that are used here
-        # inherit from `Object`.
-        DEFINE_SINGLETON_METHOD.bind_call(self, method, &@__value__.method(method))
-      end
-
-      instance_exec(&block) if block
+      super(methods:, hash:, &block)
     end
   end
 
@@ -187,17 +174,7 @@ module Blankity
       @__end__ = end_
       @__exclude_end__ = exclude_end
 
-      # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
-      methods |= %i[hash eql?] if hash
-
-      methods.each do |method|
-        p method
-        # We can use `.method` instead of querying `Kernel` because all types that are used here
-        # inherit from `Object`.
-        DEFINE_SINGLETON_METHOD.bind_call(self, method, &@__value__.method(method))
-      end
-
-      instance_exec(&block) if block
+      super(methods:, hash: &block)
     end
 
     #: () -> T?

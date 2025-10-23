@@ -1,0 +1,8 @@
+# Generated from lib/blankity/to.rb with RBS::Inline
+
+module Blankity
+  module To
+    # @rbs (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+    def self?.i: (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+  end
+end
