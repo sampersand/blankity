@@ -1,0 +1,21 @@
+class TestBlankity_Top < Minitest::Test
+  def test_that_it_doesnt_undef_private_methods: () -> untyped
+
+  def test_that_it_only_has_underscore_methods: () -> untyped
+
+  def assert_singleton_methods: (untyped methods, untyped instance) -> untyped
+
+  def test_initialize_with_argouments: () -> untyped
+
+  def test_initialize_with_methods: () -> untyped
+
+  def test_initialize_with_hash: () -> untyped
+
+  def test_initialize_with_methods_and_hash: () -> untyped
+
+  def test_initialize_with_block: () -> untyped
+
+  def test_initialize_with_block_is_run_after_methods: () -> untyped
+
+  def test___define_Object_methods__: () -> untyped
+end
