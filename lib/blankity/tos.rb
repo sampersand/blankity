@@ -1,13 +1,13 @@
 # frozen_string_literal: true
-# rbs_inline: true
+# rbs_inline: enabled
 
 module Blankity
   class ToI < Blank
     def initialize(value) = @__value__ = value
     def to_i = @__value__
   end
-
 end
+
 __END__
     
     module_function

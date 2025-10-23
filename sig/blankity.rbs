@@ -1,3 +1,0 @@
-module Blankity
-  def self.blank: () ?{ () [self: Blankity::BlankSlate] -> void } -> BlankSlate
-end
