@@ -2,6 +2,84 @@
 
 module Blankity
   module To
+    # @rbs (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+    def self?.i: (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+
+    # @rbs (int, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
+    def self?.int: (int, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
+
+    # @rbs (_ToS, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
+    def self?.s: (_ToS, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
+
+    # @rbs (string, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
+    def self?.str: (string, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
+
+    # Create a type which _only_ responds to `.to_a`. See `to_helper` for details.
+    #
+    # This supports `a(1, 2, 3)` as a convenient shorthand for `a([1, 2, 3])`. To
+    # create a `.to_a` that returns an array containing just an array, just use `a([array])`.
+    #
+    # @rbs [T] (_ToA[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+    #    | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+    def self?.a: [T] (_ToA[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+               | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+
+    # Create a type which _only_ responds to `.to_ary`. See `to_helper` for details.
+    #
+    # This supports `ary(1, 2, 3)` as a convenient shorthand for `ary([1, 2, 3])`. To
+    # create a `.to_ary` that returns an array containing just an array, use `ary([array])`.
+    #
+    # @rbs [T] (array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+    #    | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+    def self?.ary: [T] (array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+                 | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+
+    # Create a type which _only_ responds to `.to_h`. See `to_helper` for details.
+    #
+    # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
+    # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
+    # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
+    #
+    # @rbs [K, V] (_ToH[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+    #    | [K, V] (**V) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+    def self?.h: [K, V] (_ToH[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+               | [K, V] (**V) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+
+    # Create a type which _only_ responds to `.to_hash`. See `to_helper` for details.
+    #
+    # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
+    # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
+    # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
+    #
+    # @rbs [K, V] (hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+    #    | [K, V] (**V) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+    def self?.hash: [K, V] (hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+                  | [K, V] (**V) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+
+    # @rbs (_ToSym, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
+    def self?.sym: (_ToSym, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
+
+    # @rbs (_ToR, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
+    def self?.r: (_ToR, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
+
+    # @rbs (_ToC, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
+    def self?.c: (_ToC, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
+
+    # @rbs (float, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
+    def self?.f: (float, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
+
+    # @rbs (Regexp::_ToRegexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
+    def self?.regexp: (Regexp::_ToRegexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
+
+    # @rbs (path, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
+    def self?.path: (path, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
+
+    # @rbs (io, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
+    def self?.io: (io, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
+
+    # @rbs (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
+    def self?.proc: (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
+
     # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
     # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
     # `to_helper` for details.

@@ -2,8 +2,7 @@
 # rbs_inline: enabled
 
 module Blankity
-  # BlankValue is a superclass of the +ToXXX+ classes, which consolidates their initialization
-  # into one convenient place
+  # Superclass of +ToXXX+ types
   #
   # @rbs generic T -- type of @__value__
   class BlankValue < Blank
