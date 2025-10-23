@@ -2,6 +2,29 @@
 # rbs_inline: enabled
 
 module Blankity
+  class ValueBase < Blank
+    def initialize(value, methods: [], hash: false, &block)
+      # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
+      methods |= %i[hash eql?] if hash
+
+      @__value__ = value
+
+    ::Blankity.blank do
+      # Always define the `to_method`
+      define_singleton_method(:inspect) { to_method.to_s }
+      define_method(to_method) { value }
+
+      # For all the `methods` methods, fetch its definition from `value` and use that as the
+      # definition
+      methods.each do |method|
+        define_method(method, &::Kernel.instance_method(:method).bind_call(value, method))
+      end
+
+      # If a block's given, execute it.
+      class_exec(&block) if block
+    end
+  end
+
   class ToI < Blank
     #: (Integer) -> void
     def initialize(value) = @__value__ = value
