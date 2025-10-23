@@ -17,11 +17,10 @@ module Blankity
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +instance_exec+.
     #
-    # @rbs (T, ?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
-    def initialize(value, methods: [], hash: false, &block)
+    # @rbs (T, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize(value, ...)
       @__value__ = value
-
-      super(methods:, hash:, &block)
+      super(...)
     end
   end
 
@@ -168,13 +167,13 @@ module Blankity
     # @rbs @end: T?
     # @rbs @exclude_end: bool
 
-    #: (T?, T?, ?bool) -> void
-    def initialize(begin_, end_, exclude_end = false, methods: [], hash: false, &block)
+    # @rbs (T?, ?T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize(begin_, end_, exclude_end = false, ...)
       @__begin__ = begin_
       @__end__ = end_
       @__exclude_end__ = exclude_end
 
-      super(methods:, hash: &block)
+      super(...)
     end
 
     #: () -> T?

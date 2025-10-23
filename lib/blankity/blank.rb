@@ -25,28 +25,28 @@ module Blankity
     INSTANCE_EXEC = ::Object.instance_method(:instance_exec) #: UnboundMethod
     private_constant :DEFINE_SINGLETON_METHOD, :INSTANCE_EXEC
 
-    # Helper method to create a new instances
-    #
-    # @param methods [Array[interned]] {Object} methods to define on the instance.
-    # @param block [Proc] if provided, executed via +instance_exec+ on the instance
-    #
-    # === Example
-    #   # Make a empty instance
-    #   Blankity::Blank.blank
-    #
-    #   # Include `Object#inspect`, so we can print with `p`
-    #   p Blankity::Blank.blank(methods: %i[inspect])
-    #
-    #   # Define a singleton method
-    #   p Blankity::Blank.blank{ def cool?(other) = other == 3 }.cool? 3 #=> true
-    #
-    # @rbs (?methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
-    def self.blank(methods: [], &block)
-      instance = ::Class.new(self).new(methods:, &block)
-      # instance.__with_Object_methods__(*methods)
-      # INSTANCE_EXEC.bind_call(instance, &__any__ = block) if block_given?
-      # instance
-    end
+    # # Helper method to create a new instances
+    # #
+    # # @param methods [Array[interned]] {Object} methods to define on the instance.
+    # # @param block [Proc] if provided, executed via +instance_exec+ on the instance
+    # #
+    # # === Example
+    # #   # Make a empty instance
+    # #   Blankity::Blank.blank
+    # #
+    # #   # Include `Object#inspect`, so we can print with `p`
+    # #   p Blankity::Blank.blank(methods: %i[inspect])
+    # #
+    # #   # Define a singleton method
+    # #   p Blankity::Blank.blank{ def cool?(other) = other == 3 }.cool? 3 #=> true
+    # #
+    # # @rbs (?methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
+    # def self.blank(methods: [], &block)
+    #   instance = ::Class.new(self).new(methods:, &block)
+    #   # instance.__with_Object_methods__(*methods)
+    #   # INSTANCE_EXEC.bind_call(instance, &__any__ = block) if block_given?
+    #   # instance
+    # end
 
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
@@ -55,7 +55,7 @@ module Blankity
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +instance_exec+.
     #
-    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
+    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(methods: [], hash: false, &block)
       # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
       methods |= %i[hash eql?] if hash
@@ -68,7 +68,6 @@ module Blankity
 
       INSTANCE_EXEC.bind_call(self, &__any__ = block) if block
     end
-
 
     # A helper method to define {Object} instance methods on +self+
     #
@@ -98,6 +97,6 @@ module Blankity
 
   # Shorthand helper for {Blankity::Blank.blank}. See it for details
   #
-  # @rbs (?methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
-  def self.blank(...) = Blank.blank(...)
+  # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
+  def self.blank(...) = Blank.new(...)
 end

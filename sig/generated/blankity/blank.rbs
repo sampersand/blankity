@@ -26,8 +26,8 @@ module Blankity
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +instance_exec+.
     #
-    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
-    def initialize: (?methods: Array[interned], ?hash: bool) ?{ () [self: self] -> void } -> void
+    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
 
     # A helper method to define {Object} instance methods on +self+
     #
@@ -51,6 +51,6 @@ module Blankity
 
   # Shorthand helper for {Blankity::Blank.blank}. See it for details
   #
-  # @rbs (?methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
-  def self.blank: (?methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
+  # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
+  def self.blank: (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
 end
