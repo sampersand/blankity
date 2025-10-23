@@ -157,8 +157,8 @@ module Blankity
   # A Class which defines `#begin`, `#end`, and `#exclude_end?`. It implements RBS's +_Range[T]+
   # interface.
   #
-  # @rbs generic T -- Type to iterate over
-  class Range[T] < Blank
+  # @rbs generic out T -- Type to iterate over
+  class Range[out T] < Blank
     @begin: T?
 
     @end: T?

@@ -121,7 +121,7 @@ module Blankity
     #
     # @rbs [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
     def range(begin_, end_, exclude_end = false, ...)
-      Range.new(begin_, end_, exclude_end, ...)
+      __any__ = Range.new(begin_, end_, exclude_end, ...)
     end
   end
 end
