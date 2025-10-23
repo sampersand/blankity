@@ -17,7 +17,7 @@ module Blankity
   class Blank < BasicObject
     # Remove every public and protected method that we inherit, except for `__xyz__` methods
     instance_methods.each do |name|
-      undef_method(name) unless name.match? /\A__.*__\z/
+      undef_method(name) unless name.match?(/\A__.*__\z/)
     end
 
     # Declare these as constants so we don't constantly look them up.

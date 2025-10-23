@@ -9,7 +9,7 @@ module Blankity
   # define singleton methods _at all_.)
   #
   # @see Blank
-  class AbsolutelyBlank < BasicObject
+  class Top < BasicObject
     # We have to disable warnings for just this block, as Ruby warns for `undef`ing some methods
     previous_warning, $-w = $-w, nil
 

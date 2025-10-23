@@ -1,4 +1,4 @@
-# Generated from lib/blankity/absolutely_blank.rb with RBS::Inline
+# Generated from lib/blankity/top.rb with RBS::Inline
 
 module Blankity
   # A Class that has _no_ instance methods on it whatsoever.
@@ -9,6 +9,6 @@ module Blankity
   # define singleton methods _at all_.)
   #
   # @see Blank
-  class AbsolutelyBlank < BasicObject
+  class Top < BasicObject
   end
 end

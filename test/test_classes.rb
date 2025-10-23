@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-
-class TestBlankity_BlankSlate < Minitest::Test
+__END__
+class TestBlankity_ToI < Minitest::Test
+  def test_that_it_only_defines__to_i
   EXPECTED_INSTANCE_METHODS = %i[__send__ __id__ __with_Object_methods__]
 
   def test_that_it_has_only_three_instance_methods

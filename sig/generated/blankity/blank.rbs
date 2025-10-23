@@ -59,7 +59,7 @@ module Blankity
     def __define_Object_methods__: (*interned) -> self
   end
 
-  # Shorthand helper for {Blankity::Blank.blank}. See it for details
+  # Shorthand constructor {Blankity::Blank}.
   #
   # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
   def self.blank: (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
