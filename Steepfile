@@ -4,10 +4,7 @@ target :lib do
   signature "sig"
   ignore_signature "sig/test"
 
-  check "lib"                       # Directory name
-  check "path/to/source.rb"         # File name
-  check "app/models/**/*.rb"        # Glob
-  # ignore "lib/templates/*.rb"
+  check 'lib'
 
   # library "pathname"              # Standard libraries
   # library "strong_json"           # Gems

@@ -4,10 +4,20 @@
 module Blankity
   # A "blank slate" class which removes _all_ methods (from `BasicObject`) other than the "required"
   # ones of `__send__` and `__id__`.
+  #
+  # Notably, it does not remove private instance methods, as Ruby actually requires some of them to
+  # function properly (e.g. {BasicObject#singleton_method_added}.)
   class Blank < BasicObject
     # Remove every method except for `__send__` and `__id__`
     instance_methods.each do |name|
       undef_method(name) unless name == :__send__ || name == :__id__
+    end
+
+    # Helper method to create a new instance
+    #
+    # @rbs: () ?{ (Blank) -> void } -> singleton(Blank)
+    def self.blank(&block)
+      ::Class.new(self, &block).new
     end
 
     # A helper method to define some `Kernel`methods on `self`
