@@ -40,10 +40,9 @@ module Blankity
     #   # Define a singleton method
     #   p Blankity::Blank.blank{ def cool?(other) = other == 3 }.cool? 3 #=> true
     #
-    #
-    # @rbs: (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
+    # @rbs (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
     def self.blank(object_methods: [], &block)
-      instance = ::Class.new(Blank).new
+      instance = ::Class.new(self).new
       instance.__with_Object_methods__(*object_methods)
       INSTANCE_EXEC.bind_call(instance, &block) if block_given?
       instance
@@ -65,7 +64,7 @@ module Blankity
     #   fail unless blank == blank
     #   p blank
     #
-    # @rbs: (*interned) -> self
+    # @rbs (*interned) -> self
     def __with_Object_methods__(*methods)
       methods.each do |method|
         DEFINE_SINGLETON_METHOD.bind_call(self, method, ::Object.instance_method(method))
@@ -77,6 +76,6 @@ module Blankity
 
   # Shorthand helper for {Blankity::Blank.blank}. See it for details
   #
-  # @rbs: (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
+  # @rbs (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
   def self.blank(...) = Blank.blank(...)
 end

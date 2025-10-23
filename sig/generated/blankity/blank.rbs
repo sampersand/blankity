@@ -1,19 +1,64 @@
 # Generated from lib/blankity/blank.rb with RBS::Inline
 
 module Blankity
-  # A "blank slate" class which removes _all_ methods (from `BasicObject`) other than the "required"
-  # ones of `__send__` and `__id__`.
+  # An "emptier" class than {BasicObject}, which +undef+ines nearly all instance methods.
+  #
+  # Not _all_ methods are undefined (see {AboslutelyBlank} for a class which does):
+  #
+  # - Methods which match +/\\A__.*__\\z/+ are not removed. Traditionally, these methods are expected
+  #   to always be present (and +undef+ing them warns you!). Ruby has two of these: +__send__+
+  #   and +__id__+
+  # - Private methods are not undefined, as each one of them is expected to be present (most of them
+  #   are hooks, eg +singleton_method_added+), and aren't easily accessible from external classes.
+  #
+  # To make using +Blank+ easier, it also provides the {Blank#__with_Object_methods__} method
+  # to define singleton methods on instances that {Object} defines.
   class Blank < BasicObject
-    # A helper method to define some `Kernel`methods on `self`
-    def __with_Object_methods__: (*untyped methods) -> untyped
+    # Declare these as constants so we don't constantly look them up.
+    DEFINE_SINGLETON_METHOD: untyped
 
-    # Same as `__with_Object_methods__`, but adds them to subclasses. This shouldn't
-    # be called on `Blankity::Blank` directly, as that affects subclasses
-    def self.__with_Object_methods__: (*untyped methods) -> untyped
+    INSTANCE_EXEC: untyped
 
-    # Helper method to create a new `Blank` with a block
-    def self.blank: () ?{ (?) -> untyped } -> untyped
+    # Helper method to create a new instances
+    #
+    # @param object_methods [Array[interned]] kernel methods to define on the instance.
+    # @param block [Proc] if provided, executed via +instance_exec+ on the instance
+    #
+    # === Example
+    #   # Make a empty instance
+    #   Blankity::Blank.blank
+    #
+    #   # Include `Object#inspect`, so we can print with `p`
+    #   p Blankity::Blank.blank(object_methods: %i[inspect])
+    #
+    #   # Define a singleton method
+    #   p Blankity::Blank.blank{ def cool?(other) = other == 3 }.cool? 3 #=> true
+    #
+    # @rbs (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
+    def self.blank: (?object_methods: Array[interned]) ?{ () [self: instance] -> void } -> instance
+
+    # A helper method to define {Object} instance methods on +self+
+    #
+    # @param methods [*interned] The list of instance methods from {Object} to define
+    # @return [self]
+    #
+    # === Example
+    #   # Make an empty instance
+    #   blank = Blankity::Blank.blank
+    #
+    #   # Make sure it's printable
+    #   blank.__with_Object_methods__(:inspect, :==)
+    #
+    #   # Now you can use them!
+    #   fail unless blank == blank
+    #   p blank
+    #
+    # @rbs (*interned) -> self
+    def __with_Object_methods__: (*interned) -> self
   end
 
-  def self.blank: () -> untyped
+  # Shorthand helper for {Blankity::Blank.blank}. See it for details
+  #
+  # @rbs (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
+  def self.blank: (?object_methods: Array[interned]) ?{ () [self: Blank] -> void } -> Blank
 end
