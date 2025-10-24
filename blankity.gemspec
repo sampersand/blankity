@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.author  = 'Sam Westerman'
   spec.email   = 'mail@sampersand.me'
 
-  spec.summary = 'Provides "blank" objects which *only* supply conversion methods'
+  spec.summary = 'Provides "blank" objects which only supply conversion methods'
   spec.description = <<~EOS
     There's a lot of conversion methods in Ruby: to_s, to_a, to_i, etc. This gem provides types
-    which *only* respond to these conversion methods, and nothing else.
+    which only respond to these conversion methods, and nothing else.
   EOS
 
   spec.homepage = 'https://github.com/sampersand/blankity'
