@@ -1,52 +1,54 @@
 # Generated from lib/blankity/classes.rb with RBS::Inline
 
 module Blankity
-  # Superclass of +ToXXX+ types
-  #
-  # @rbs generic T -- type of @__value__
-  class BlankValue[T] < Blank
-    @__value__: T
+  # A Class which only defines +#to_i+; it implements RBS's +_ToI+ interface.
+  class ToI < Blank
+    @__value__: Integer
 
-    # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @param value [T] the backing value for this class
-    # @param methods [Array[interned]] a list of {OBject} methods to define on +self+.
-    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
-    #                    type can be used as a key in +Hash+es
-    # @yield [] if a block is given, runs it via +instance_exec+.
-    #
-    # @rbs (T, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-    def initialize: (T, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-  end
+    # @rbs (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
 
-  # A Class which exclusively defines +#to_i+; it implements RBS's +_ToI+ interface.
-  #
-  # @rbs inherits BlankValue[Integer]
-  class ToI < BlankValue[Integer]
     # : () -> Integer
     def to_i: () -> Integer
   end
 
   # A Class which exclusively defines +#to_int+; it implements RBS's +_ToInt+ interface.
-  #
-  # @rbs inherits BlankValue[Integer]
-  class ToInt < BlankValue[Integer]
+  class ToInt < Blank
+    @__value__: Integer
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Integer
     def to_int: () -> Integer
   end
 
   # A Class which exclusively defines +#to_s+; it implements RBS's +_ToS+ interface.
-  #
-  # @rbs inherits BlankValue[String]
-  class ToS < BlankValue[String]
+  class ToS < Blank
+    @__value__: String
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> String
     def to_s: () -> String
   end
 
   # A Class which exclusively defines +#to_str+; it implements RBS's +_ToStr+ interface.
-  #
-  # @rbs inherits BlankValue[String]
-  class ToStr < BlankValue[String]
+  class ToStr < Blank
+    @__value__: String
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> String
     def to_str: () -> String
   end
@@ -54,8 +56,14 @@ module Blankity
   # A Class which exclusively defines +#to_a+; it implements RBS's +_ToA[T]+ interface.
   #
   # @rbs generic unchecked out T -- Type of elements
-  # @rbs inherits BlankValue[Array[T]]
-  class ToA[unchecked out T] < BlankValue[Array[T]]
+  class ToA[unchecked out T] < Blank
+    @__value__: Array[T]
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Array[T]
     def to_a: () -> Array[T]
   end
@@ -63,8 +71,14 @@ module Blankity
   # A Class which exclusively defines +#to_ary+; it implements RBS's +_ToAry[T]+ interface.
   #
   # @rbs generic unchecked out T -- Type of elements
-  # @rbs inherits BlankValue[Array[T]]
-  class ToAry[unchecked out T] < BlankValue[Array[T]]
+  class ToAry[unchecked out T] < Blank
+    @__value__: Array[T]
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Array[T]
     def to_ary: () -> Array[T]
   end
@@ -73,8 +87,14 @@ module Blankity
   #
   # @rbs generic unchecked out K -- Type of Key
   # @rbs generic unchecked out V -- Type of Value
-  # @rbs inherits BlankValue[Hash[K, V]]
-  class ToH[unchecked out K, unchecked out V] < BlankValue[Hash[K, V]]
+  class ToH[unchecked out K, unchecked out V] < Blank
+    @__value__: Hash[K, V]
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Hash[K, V]
     def to_h: () -> Hash[K, V]
   end
@@ -83,72 +103,118 @@ module Blankity
   #
   # @rbs generic unchecked out K -- Type of Key
   # @rbs generic unchecked out V -- Type of Value
-  # @rbs inherits BlankValue[Hash[K, V]]
-  class ToHash[unchecked out K, unchecked out V] < BlankValue[Hash[K, V]]
+  class ToHash[unchecked out K, unchecked out V] < Blank
+    @__value__: Hash[K, V]
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Hash[K, V]
     def to_hash: () -> Hash[K, V]
   end
 
   # A Class which exclusively defines +#to_sym+; it implements RBS's +_ToSym+ interface.
-  #
-  # @rbs inherits BlankValue[Symbol]
-  class ToSym < BlankValue[Symbol]
+  class ToSym < Blank
+    @__value__: Symbol
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Symbol, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Symbol, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Symbol
     def to_sym: () -> Symbol
   end
 
   # A Class which exclusively defines +#to_r+; it implements RBS's +_ToR+ interface.
-  #
-  # @rbs inherits BlankValue[Rational]
-  class ToR < BlankValue[Rational]
+  class ToR < Blank
+    @__value__: Rational
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Rational, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Rational, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Rational
     def to_r: () -> Rational
   end
 
   # A Class which exclusively defines +#to_c+; it implements RBS's +_ToC+ interface.
-  #
-  # @rbs inherits BlankValue[Complex]
-  class ToC < BlankValue[Complex]
+  class ToC < Blank
+    @__value__: Complex
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Complex, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Complex, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Complex
     def to_C: () -> Complex
   end
 
   # A Class which exclusively defines +#to_f+; it implements RBS's +_ToF+ interface.
-  #
-  # @rbs inherits BlankValue[Float]
-  class ToF < BlankValue[Float]
+  class ToF < Blank
+    @__value__: Float
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Float, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Float, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Float
     def to_f: () -> Float
   end
 
   # A Class which exclusively defines +#to_regexp+; it implements RBS's +Regexp::_ToRegexp+ interface.
-  #
-  # @rbs inherits BlankValue[Regexp]
-  class ToRegexp < BlankValue[Regexp]
+  class ToRegexp < Blank
+    @__value__: Regexp
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Regexp
     def to_regexp: () -> Regexp
   end
 
   # A Class which exclusively defines +#to_path+; it implements RBS's +_ToPath+ interface.
-  #
-  # @rbs inherits BlankValue[String]
-  class ToPath < BlankValue[String]
+  class ToPath < Blank
+    @__value__: String
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> String
     def to_path: () -> String
   end
 
   # A Class which exclusively defines +#to_io+; it implements RBS's +_ToIO+ interface.
-  #
-  # @rbs inherits BlankValue[IO]
-  class ToIO < BlankValue[IO]
+  class ToIO < Blank
+    @__value__: IO
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (IO, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (IO, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> IO
     def to_io: () -> IO
   end
 
   # A Class which exclusively defines +#to_proc+; it implements RBS's +_ToProc+ interface.
-  #
-  # @rbs inherits BlankValue[Proc]
-  class ToProc < BlankValue[Proc]
+  class ToProc < Blank
+    @__value__: Proc
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (Proc, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (Proc, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
     # : () -> Proc
     def to_proc: () -> Proc
   end
@@ -164,6 +230,8 @@ module Blankity
 
     @exclude_end: bool
 
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
     # @rbs (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize: (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
 
