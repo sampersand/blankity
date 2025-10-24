@@ -3,7 +3,7 @@
 module Blankity
   # An "emptier" class than {BasicObject}, which +undef+ines nearly all instance methods.
   #
-  # Not _all_ methods are undefined (see {AboslutelyBlank} for a class which does):
+  # Not _all_ methods are undefined (see {Top} for a class which does):
   #
   # - Methods which match +/\\A__.*__\\z/+ are not removed. Traditionally, these methods are expected
   #   to always be present (and +undef+ing them warns you!). Ruby has two of these: +__send__+

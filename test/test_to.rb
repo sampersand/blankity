@@ -129,11 +129,7 @@ class TestBlankity_To < Minitest::Test
   end
 
   def test_regexp
-    # lol for some reason `Regexp` doesn't define `.to_regexp`...
-    my_regex = Regexp.new('regex')
-    def my_regex.to_regexp = self
-
-    assert_to_method_works :regexp, Blankity::ToRegexp, my_regex
+    assert_to_method_works :regexp, Blankity::ToRegexp, /regex/
   end
 
   def test_path

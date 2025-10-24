@@ -89,8 +89,8 @@ module Blankity
 
     # Convenience method to make {ToRegexp}s from +value.to_regexp+
     #
-    # @rbs (Regexp::_ToRegexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
-    def regexp(value, ...) = ToRegexp.new(value.to_regexp, ...)
+    # @rbs (Regexp::_ToRegexp | Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
+    def regexp(value, ...) = ToRegexp.new(Regexp === value ? value : value.to_regexp, ...)
 
     # Convenience method to make {ToPath}s from +value.to_path+, or +Kernel#String(value)+
     # if +value+ doesn't define +#to_path+.
