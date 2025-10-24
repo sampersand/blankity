@@ -71,3 +71,17 @@ system(
   chdir: path('/'),
 )
 ```
+
+## Development
+
+Run tests via `rake test` and `steep check`.
+
+Before pushing new versions, make sure to run `bundle exec rbs-inline --output lib` to generate new rbs signatures, and to update the `version.rb` file.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/sampersand/blankity.
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
