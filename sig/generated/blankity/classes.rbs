@@ -151,7 +151,7 @@ module Blankity
     def initialize: (Complex, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
 
     # : () -> Complex
-    def to_C: () -> Complex
+    def to_c: () -> Complex
   end
 
   # A Class which exclusively defines +#to_f+; it implements RBS's +_ToF+ interface.
