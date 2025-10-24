@@ -5,119 +5,123 @@ module Blankity
   module To
     module_function
 
+    # Convenience method to make {ToI}s from +value.to_i+
+    #
     # @rbs (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
     def i(value, ...) = ToI.new(value.to_i, ...)
 
+    # Convenience method to make {ToInt}s from +value.to_int+
+    #
     # @rbs (int, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
     def int(value, ...) = ToInt.new(value.to_int, ...)
 
+    # Convenience method to make {ToS}s from +value.to_s+
+    #
     # @rbs (_ToS, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
     def s(value, ...) = ToS.new(value.to_s, ...)
 
+    # Convenience method to make {ToStr}s from +value.to_str+
+    #
     # @rbs (string, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
     def str(value, ...) = ToStr.new(value.to_str, ...)
 
-    # Create a type which _only_ responds to `.to_a`. See `to_helper` for details.
+    # Convenience method to make {ToA}s from +elements+
     #
-    # This supports `a(1, 2, 3)` as a convenient shorthand for `a([1, 2, 3])`. To
-    # create a `.to_a` that returns an array containing just an array, just use `a([array])`.
-    #
-    # @rbs [T] (_ToA[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
-    #    | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
-    def a(*elements, **, &)
-      if elements.length == 1 && defined?(elements[0].to_a)
-        elements = (__any__ = elements[0]).to_a
-      end
+    # @rbs [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+    def a(*elements, **, &) = ToA.new(elements, **, &)
 
-      ToA.new(elements, **, &)
-    end
-
-    # Create a type which _only_ responds to `.to_ary`. See `to_helper` for details.
+    # Convenience method to make {ToAry}s from +elements+
     #
-    # This supports `ary(1, 2, 3)` as a convenient shorthand for `ary([1, 2, 3])`. To
-    # create a `.to_ary` that returns an array containing just an array, use `ary([array])`.
-    #
-    # @rbs [T] (array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
-    #    | [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
-    def ary(*elements, **, &)
-      if elements.length == 1 && defined?(elements[0].to_ary)
-        elements = (__any__ = elements[0]).to_ary
-      end
+    # @rbs [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+    def ary(*elements, **, &) = ToAry.new(elements, **, &)
 
-      ToAry.new(elements, **, &)
-    end
-
-    # Create a type which _only_ responds to `.to_h`. See `to_helper` for details.
+    # Convenience method to make {ToH}s from +hash+
     #
-    # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
-    # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
-    # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
+    # This supports passing in key/values directly via +Blankity::To.h('a' => 'b')+ as a convenient
+    # shorthand, but you can't then pass keyword arguments to {ToH}'s constructor. To do so, instead
+    # pass in a Hash as a positional argument (e.g. +Blankity::To.h({ 'a' => 'b' }, ...)+)
     #
     # @rbs [K, V] (_ToH[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
     #    | [K, V] (**V) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
-    def h(hash = nohash=true, **, &)
-      if nohash
-        ToH.new({**}, &)
-      else
+    def h(hash = nil, **, &)
+      if hash
         ToH.new(hash.to_h, **, &)
+      else
+        ToH.new({**}, &)
       end
     end
 
-    # Create a type which _only_ responds to `.to_hash`. See `to_helper` for details.
+    # Convenience method to make {ToHash}s from +hash+
     #
-    # This supports passing in key/values directly via `h('a' => 'b')` as a convenient
-    # shorthand for `h({'a' => 'b'})`, but the shorthand version doesn't allow you
-    # to supply keyowrd arguments that `to_helper` expects. Use `h({'a' => 'b'}, ...)` for that.
+    # This supports passing in key/values directly via +Blankity::To.hash('a' => 'b')+ as a convenient
+    # shorthand, but you can't then pass keyword arguments to {ToHash}'s constructor. To do so, instead
+    # pass in a Hash as a positional argument (e.g. +Blankity::To.hash({ 'a' => 'b' }, ...)+)
     #
     # @rbs [K, V] (hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
     #    | [K, V] (**V) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
-    def hash(hash = nohash=true, **, &)
-      if nohash
-        ToHash.new({**}, &)
+    def hash(hash = nil, **, &)
+      if hash
+        ToHash.new(hash.to_hash, **, &)
       else
-        ToHash.new((__any__ = hash).to_hash, **, &)
+        ToHash.new({**}, &)
       end
     end
 
+    # Convenience method to make {ToSym}s from +value.to_sym+
+    #
     # @rbs (_ToSym, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
     def sym(value, ...) = ToSym.new(value.to_sym, ...)
 
+    # Convenience method to make {ToR}s from +value.to_r+
+    #
     # @rbs (_ToR, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
     def r(value, ...) = ToR.new(value.to_r, ...)
 
+    # Convenience method to make {ToC}s from +value.to_c+
+    #
     # @rbs (_ToC, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
     def c(value, ...) = ToC.new(value.to_c, ...)
 
+    # Convenience method to make {ToF}s from +value.to_f+
+    #
     # @rbs (float, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
     def f(value, ...) = ToF.new(value.to_f, ...)
 
+    # Convenience method to make {ToRegexp}s from +value.to_regexp+
+    #
     # @rbs (Regexp::_ToRegexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
     def regexp(value, ...) = ToRegexp.new(value.to_regexp, ...)
 
+    # Convenience method to make {ToPath}s from +value.to_path+, or +Kernel#String(value)+
+    # if +value+ doesn't define +#to_path+.
+    #
     # @rbs (path, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
-    def path(value, ...)
-      ToPath.new(defined?(value.to_path) ? value.to_path : String(value), ...)
-    end
+    def path(value, ...) = ToPath.new(defined?(value.to_path) ? value.to_path : String(value), ...)
 
+    # Convenience method to make {ToIO}s from +value.to_io+
+    #
     # @rbs (io, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
     def io(value, ...) = ToIO.new(value.to_io, ...)
 
+    # Convenience method to make {ToProc}s from the supplied block, or +proc+ if no block is given.
+    #
+    # This supports passing blocks in directly via +Blankity::To.proc { ... }+ as a convenient
+    # shorthand, but then you can't pass a block to {ToProc}'s constructor. To so do, instead pass
+    # the block as a positional parameter (eg +Blankity::To.proc(proc { ... }) { ... }+)
+    #
     # @rbs (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
-    def proc(proc = noproc=true, **, &block)
-      if noproc
-        unless block_given?
-          raise ArgumentError, 'if an explicit proc is omitted, a block must be passed'
-        end
-
-        ToProc.new(__any__ = block, **)
-      else
+    #    | (?methods: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
+    def proc(proc = nil, **, &block)
+      if proc
         ToProc.new(proc.to_proc, **, &block)
+      elsif !block_given?
+        raise ArgumentError, 'if an explicit proc is omitted, a block must be passed'
+      else
+        ToProc.new(__any__ = block, **)
       end
     end
 
-    # Create a type which _only_ responds to `.begin`, `.end`, and `.exclude_end?`
-    # (the methods required to be considered a "custom range," eg for `Array#[]`.) See
-    # `to_helper` for details.
+    # Convenience method to make {Range}s from the supplied arguments.
     #
     # @rbs [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
     def range(begin_, end_, exclude_end = false, ...)
