@@ -185,7 +185,7 @@ module Blankity
     end
 
     #: () -> Complex
-    def to_C = @__value__
+    def to_c = @__value__
   end
 
   # A Class which exclusively defines +#to_f+; it implements RBS's +_ToF+ interface.
