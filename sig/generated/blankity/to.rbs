@@ -1,7 +1,21 @@
 # Generated from lib/blankity/to.rb with RBS::Inline
 
 module Blankity
+  # Convenience methods for creating new +BlankIty::ToXXX+ instances.
+  #
+  # Using +To+ as a mixin (via +extend+ / +include+ / +prepend+) isn't suggested, as {Kernel#proc}
+  # and {Kernel#hash} will be overwritten. Attempting to do so will emit a warning if `$VERBOSE` is
+  # enabled.
   module To
+    # Warn when including +To+
+    def self.included: (untyped mod) -> untyped
+
+    # Warn when extending +To+
+    def self.extended: (untyped mod) -> untyped
+
+    # Warn when prepending +To+
+    def self.prepended: (untyped mod) -> untyped
+
     # Convenience method to make {ToI}s from +value.to_i+
     #
     # @rbs (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI

@@ -1,6 +1,87 @@
 require 'test_helper'
 
 class TestBlankity_To < Minitest::Test
+  def test_included
+    old_verbose = $VERBOSE
+
+    $VERBOSE = true
+    out, err = capture_io do
+      Class.new { include Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_match 'including Blankity::To overwrites Kernel#proc and Kernel#hash', err
+
+    $VERBOSE = false
+    out, err = capture_io do
+      Class.new { include Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+
+    $VERBOSE = nil
+    out, err = capture_io do
+      Class.new { include Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+  ensure
+    $VERBOSE = old_verbose
+  end
+
+  def test_extended
+    old_verbose = $VERBOSE
+
+    $VERBOSE = true
+    out, err = capture_io do
+      Class.new { extend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_match 'extending Blankity::To overwrites Kernel#proc and Kernel#hash', err
+
+    $VERBOSE = false
+    out, err = capture_io do
+      Class.new { extend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+
+    $VERBOSE = nil
+    out, err = capture_io do
+      Class.new { extend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+  ensure
+    $VERBOSE = old_verbose
+  end
+
+  def test_prepended
+    old_verbose = $VERBOSE
+
+    $VERBOSE = true
+    out, err = capture_io do
+      Class.new { prepend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_match 'prepending Blankity::To overwrites Kernel#proc and Kernel#hash', err
+
+    $VERBOSE = false
+    out, err = capture_io do
+      Class.new { prepend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+
+    $VERBOSE = nil
+    out, err = capture_io do
+      Class.new { prepend Blankity::To }
+    end
+    assert_predicate out, :empty?
+    assert_predicate err, :empty?
+  ensure
+    $VERBOSE = old_verbose
+  end
+
   def assert_to_method_works(method, cls, expected)
     instance = Blankity::To.public_send(method, expected, methods: %i[instance_of?]) {
       def hello = 10

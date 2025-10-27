@@ -2,7 +2,27 @@
 # rbs_inline: enabled
 
 module Blankity
+  # Convenience methods for creating new +BlankIty::ToXXX+ instances.
+  #
+  # Using +To+ as a mixin (via +extend+ / +include+ / +prepend+) isn't suggested, as {Kernel#proc}
+  # and {Kernel#hash} will be overwritten. Attempting to do so will emit a warning if `$VERBOSE` is
+  # enabled.
   module To
+    # Warn when including +To+
+    def self.included(mod)
+      $VERBOSE and warn 'including Blankity::To overwrites Kernel#proc and Kernel#hash', uplevel: 1
+    end
+
+    # Warn when extending +To+
+    def self.extended(mod)
+      $VERBOSE and warn 'extending Blankity::To overwrites Kernel#proc and Kernel#hash', uplevel: 1
+    end
+
+    # Warn when prepending +To+
+    def self.prepended(mod)
+      $VERBOSE and warn 'prepending Blankity::To overwrites Kernel#proc and Kernel#hash', uplevel: 1
+    end
+
     module_function
 
     # Convenience method to make {ToI}s from +value.to_i+
@@ -129,3 +149,4 @@ module Blankity
     end
   end
 end
+

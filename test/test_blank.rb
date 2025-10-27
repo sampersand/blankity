@@ -62,7 +62,7 @@ class TestBlankity_Top < Minitest::Test
     assert_singleton_methods %i[eql? hash], blank
 
     # Make sure `.eql?` and `.hash` do what's expected
-    assert blank.eql?(blank)
+    assert_operator blank, :eql?, blank
     assert_instance_of Integer, blank.hash
   end
 
