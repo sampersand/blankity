@@ -12,7 +12,7 @@ module Blankity
   # - Private methods are not undefined, as each one of them is expected to be present (most of them
   #   are hooks, eg +singleton_method_added+), and aren't easily accessible from external classes.
   #
-  # To make using +Blank+ easier, its constructor allows you to pass a +methods:+ keyword argument,
+  # To make using +Blank+ easier, its constructor allows you to pass a +with:+ keyword argument,
   # which will define singleton methods based on {Object}.
   class Blank < BasicObject
     # Define top-level methods that are annoying to not have present.
@@ -29,10 +29,15 @@ module Blankity
       undef_method(name) unless name.match?(/\A__.*__\z/)
     end
 
+    class << self
+      # Alias for `new`
+      alias blank new
+    end
+
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
-    # @param methods [Array[interned]] a list of {Object} methods to define on +self+.
-    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
+    # @param with [Array[interned]] a list of {Object} methods to define on +self+.
+    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +with+ so the resulting
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +__instance_exec__+.
     #
@@ -41,18 +46,18 @@ module Blankity
     #   Blankity::Blank.new
     #
     #   # Include `Object#inspect`, so we can print with `p`
-    #   p Blankity::Blank.new(methods: %i[inspect])
+    #   p Blankity::Blank.new(with: %i[inspect])
     #
     #   # Define a singleton method
     #   p Blankity::Blank.new{ def cool?(other) = other == 3 }.cool?(3) #=> true
     #
-    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-    def initialize(methods: [], hash: false, &block)
+    # @rbs (?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize(with: [], hash: false, &block)
       # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
-      methods |= %i[hash eql?] if hash
+      with |= %i[hash eql?] if hash
 
       # Define any object methods requested by the end-user
-      methods.each do |method|
+      with.each do |method|
         __define_singleton_method__(method, ::Object.instance_method(method).bind(self))
       end
 
@@ -60,9 +65,4 @@ module Blankity
       __instance_exec__(&__any__ = block) if block
     end
   end
-
-  # Shorthand constructor {Blankity::Blank}.
-  #
-  # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
-  def self.blank(...) = Blank.new(...)
 end

@@ -24,7 +24,7 @@ p defined?(blank.==)      #=> nil
 p defined?(blank.inspect) #=> nil
 
 # Include specific `Object` methods:
-blank = Blankity::Blank.new(methods: [:==])
+blank = Blankity::Blank.new(with: [:==])
 p blank == blank #=> true
 
 # Also supports blocks, which are `instance_exec`ed

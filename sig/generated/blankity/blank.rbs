@@ -19,6 +19,8 @@ module Blankity
 
     def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
 
+    alias self.blank self.new
+
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
     # @param methods [Array[interned]] a list of {Object} methods to define on +self+.

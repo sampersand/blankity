@@ -8,7 +8,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Integer, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -24,7 +24,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Integer, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Integer, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -40,7 +40,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (String, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -56,7 +56,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (String, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -74,7 +74,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Array[T], ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -92,7 +92,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Array[T], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Array[T], ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -111,7 +111,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Hash[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -130,7 +130,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Hash[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -146,7 +146,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Symbol, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Symbol, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -162,7 +162,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Rational, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Rational, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -178,7 +178,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Complex, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Complex, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -194,7 +194,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Float, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Float, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -210,7 +210,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Regexp, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -226,7 +226,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (String, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (String, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -242,7 +242,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (IO, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (IO, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -258,7 +258,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (Proc, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (Proc, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(value, ...)
       @__value__ = value
       super(...)
@@ -279,7 +279,7 @@ module Blankity
 
     # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
     #
-    # @rbs (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (T?, T?, ?bool, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize(begin_, end_, exclude_end = false, ...)
       @__begin__ = begin_
       @__end__ = end_
