@@ -14,17 +14,17 @@ module Blankity
   # To make using +Blank+ easier, its constructor allows you to pass a +methods:+ keyword argument,
   # which will define singleton methods based on {Object}.
   class Blank < BasicObject
-    # Declare these as constants so we don't constantly look them up.
-    DEFINE_SINGLETON_METHOD: UnboundMethod
+    def __define_singleton_method__: (interned name, Method | UnboundMethod | Proc method) -> Symbol
+                                   | (interned name) { (?) [self: self] -> untyped } -> Symbol
 
-    INSTANCE_EXEC: UnboundMethod
+    def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
 
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
     # @param methods [Array[interned]] a list of {Object} methods to define on +self+.
     # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
     #                    type can be used as a key in +Hash+es
-    # @yield [] if a block is given, runs it via +instance_exec+.
+    # @yield [] if a block is given, runs it via +__instance_exec__+.
     #
     # === Example
     #   # Make a empty instance
@@ -38,25 +38,6 @@ module Blankity
     #
     # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
     def initialize: (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-
-    # A helper method to define {Object} instance methods on +self+
-    #
-    # @param methods [*interned] The list of instance methods from {Object} to define
-    # @return [self]
-    #
-    # === Example
-    #   # Make an empty instance
-    #   blank = Blankity::Blank.blank
-    #
-    #   # Make sure it's printable
-    #   blank.__define_Object_methods__(:inspect, :==)
-    #
-    #   # Now you can use them!
-    #   fail unless blank == blank
-    #   p blank
-    #
-    # @rbs (*interned) -> self
-    def __define_Object_methods__: (*interned) -> self
   end
 
   # Shorthand constructor {Blankity::Blank}.

@@ -16,6 +16,4 @@ class TestBlankity_Top < Minitest::Test
   def test_initialize_with_block: () -> untyped
 
   def test_initialize_with_block_is_run_after_methods: () -> untyped
-
-  def test___define_Object_methods__: () -> untyped
 end

@@ -89,17 +89,20 @@ class TestBlankity_Top < Minitest::Test
     assert_equal Blankity::Blank, cls
   end
 
-  def test___define_Object_methods__
+  def test___define_singleton_method__
     blank = Blankity::Blank.new
 
-    # Make sure it starts with nothing
-    assert_singleton_methods [], blank
+    blank.__define_singleton_method__(:hello, proc { 'world' })
+    assert_equal 'world', blank.hello
 
-    # Make sure the return value is `blank`
-    result = blank.__define_Object_methods__(:inspect, :display)
-    assert_equal blank.__id__, result.__id__
+    blank.__define_singleton_method__(:hola) { hello + '!' }
+    assert_equal 'world!', blank.hola
+  end
 
-    # Make sure those methods were defined
-    assert_singleton_methods %i[inspect display], blank
+  def test___instance_exec__
+    blank = Blankity::Blank.new { def exclaim = '!' }
+
+    result = blank.__instance_exec__(:hello, where: 'world') { |greeting, where:| "#{greeting}, #{where}#{self.exclaim}" }
+    assert_equal 'hello, world!', result
   end
 end

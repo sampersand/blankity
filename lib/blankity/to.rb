@@ -131,7 +131,7 @@ module Blankity
     #
     # @rbs (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
     #    | (?methods: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
-    def proc(proc = nil, **, &block)
+    def self.proc(proc = nil, **, &block)
       if proc
         ToProc.new(proc.to_proc, **, &block)
       elsif !block_given?

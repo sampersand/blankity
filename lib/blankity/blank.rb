@@ -15,22 +15,26 @@ module Blankity
   # To make using +Blank+ easier, its constructor allows you to pass a +methods:+ keyword argument,
   # which will define singleton methods based on {Object}.
   class Blank < BasicObject
-    # Remove every public and protected method that we inherit, except for `__xyz__` methods
+    # Define top-level methods that are annoying to not have present.
+
+    # @rbs!
+    #   def __define_singleton_method__: (interned name, Method | UnboundMethod | Proc method) -> Symbol
+    #                                  | (interned name) { (?) [self: self] -> untyped } -> Symbol
+    #   def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
+    define_method :__define_singleton_method__, ::Kernel.instance_method(:define_singleton_method)
+    alias_method :__instance_exec__, :instance_exec # Use `alias_method` instead of `alias` so rbs-inline won't pick it up
+
+    # Remove every other public and protected method that we inherit, except for `__xyz__` methods
     instance_methods.each do |name|
       undef_method(name) unless name.match?(/\A__.*__\z/)
     end
-
-    # Declare these as constants so we don't constantly look them up.
-    DEFINE_SINGLETON_METHOD = ::Object.instance_method(:define_singleton_method) #: UnboundMethod
-    INSTANCE_EXEC = ::Object.instance_method(:instance_exec) #: UnboundMethod
-    private_constant :DEFINE_SINGLETON_METHOD, :INSTANCE_EXEC
 
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
     # @param methods [Array[interned]] a list of {Object} methods to define on +self+.
     # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
     #                    type can be used as a key in +Hash+es
-    # @yield [] if a block is given, runs it via +instance_exec+.
+    # @yield [] if a block is given, runs it via +__instance_exec__+.
     #
     # === Example
     #   # Make a empty instance
@@ -48,35 +52,12 @@ module Blankity
       methods |= %i[hash eql?] if hash
 
       # Define any object methods requested by the end-user
-      __define_Object_methods__(*methods)
-
-      # If a block's provided, then `instance_exec`
-      INSTANCE_EXEC.bind_call(self, &__any__ = block) if block
-    end
-
-    # A helper method to define {Object} instance methods on +self+
-    #
-    # @param methods [*interned] The list of instance methods from {Object} to define
-    # @return [self]
-    #
-    # === Example
-    #   # Make an empty instance
-    #   blank = Blankity::Blank.blank
-    #
-    #   # Make sure it's printable
-    #   blank.__define_Object_methods__(:inspect, :==)
-    #
-    #   # Now you can use them!
-    #   fail unless blank == blank
-    #   p blank
-    #
-    # @rbs (*interned) -> self
-    def __define_Object_methods__(*methods)
       methods.each do |method|
-        DEFINE_SINGLETON_METHOD.bind_call(self, method, ::Object.instance_method(method).bind(self))
+        __define_singleton_method__(method, ::Object.instance_method(method).bind(self))
       end
 
-      self
+      # If a block's provided, then `instance_exec`
+      __instance_exec__(&__any__ = block) if block
     end
   end
 
