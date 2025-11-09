@@ -83,7 +83,7 @@ class TestBlankity_To < Minitest::Test
   end
 
   def assert_to_method_works(method, cls, expected)
-    instance = Blankity::To.public_send(method, expected, methods: %i[instance_of?]) {
+    instance = Blankity::To.public_send(method, expected, with: %i[instance_of?]) {
       def hello = 10
     }
 
@@ -117,7 +117,7 @@ class TestBlankity_To < Minitest::Test
   end
 
   def test_a
-    instance = Blankity::To.a(1, 2, 3, methods: %i[instance_of?]) { def hello = 10 }
+    instance = Blankity::To.a(1, 2, 3, with: %i[instance_of?]) { def hello = 10 }
 
     # Make sure it returns a `cls`
     assert_instance_of Blankity::ToA, instance
@@ -133,7 +133,7 @@ class TestBlankity_To < Minitest::Test
   end
 
   def test_ary
-    instance = Blankity::To.ary(1, 2, 3, methods: %i[instance_of?]) { def hello = 10 }
+    instance = Blankity::To.ary(1, 2, 3, with: %i[instance_of?]) { def hello = 10 }
 
     # Make sure it returns a `cls`
     assert_instance_of Blankity::ToAry, instance
@@ -149,7 +149,7 @@ class TestBlankity_To < Minitest::Test
   end
 
   def test_h
-    instance = Blankity::To.h({ 'a' => 'b' }, methods: %i[instance_of?]) { def hello = 10 }
+    instance = Blankity::To.h({ 'a' => 'b' }, with: %i[instance_of?]) { def hello = 10 }
 
     # Make sure it returns a `cls`
     assert_instance_of Blankity::ToH, instance
@@ -164,15 +164,15 @@ class TestBlankity_To < Minitest::Test
     assert_equal Hash['a' => 'b'], Blankity::To.h(instance.to_h).to_h
 
     # Make sure the non-method one works too
-    instance2 = Blankity::To.h('c' => 'd', methods: %i[instance_of?]) { def hello = 10 }
+    instance2 = Blankity::To.h('c' => 'd', with: %i[instance_of?]) { def hello = 10 }
     assert_equal 10, instance2.hello
-    assert_equal Hash['c' => 'd', methods: %i[instance_of?]], instance2.to_h
-    assert_equal Hash['c' => 'd', methods: %i[instance_of?]], Blankity::To.h(instance2.to_h).to_h
+    assert_equal Hash['c' => 'd', with: %i[instance_of?]], instance2.to_h
+    assert_equal Hash['c' => 'd', with: %i[instance_of?]], Blankity::To.h(instance2.to_h).to_h
   end
 
 
   def test_hash
-    instance = Blankity::To.hash({ 'a' => 'b' }, methods: %i[instance_of?]) { def hello = 10 }
+    instance = Blankity::To.hash({ 'a' => 'b' }, with: %i[instance_of?]) { def hello = 10 }
 
     # Make sure it returns a `cls`
     assert_instance_of Blankity::ToHash, instance
@@ -187,10 +187,10 @@ class TestBlankity_To < Minitest::Test
     assert_equal Hash['a' => 'b'], Blankity::To.hash(instance.to_hash).to_hash
 
     # Make sure the non-method one works too
-    instance2 = Blankity::To.hash('c' => 'd', methods: %i[instance_of?]) { def hello = 10 }
+    instance2 = Blankity::To.hash('c' => 'd', with: %i[instance_of?]) { def hello = 10 }
     assert_equal 10, instance2.hello
-    assert_equal Hash['c' => 'd', methods: %i[instance_of?]], instance2.to_hash
-    assert_equal Hash['c' => 'd', methods: %i[instance_of?]], Blankity::To.hash(instance2.to_hash).to_hash
+    assert_equal Hash['c' => 'd', with: %i[instance_of?]], instance2.to_hash
+    assert_equal Hash['c' => 'd', with: %i[instance_of?]], Blankity::To.hash(instance2.to_hash).to_hash
   end
 
   def test_sym
@@ -225,14 +225,14 @@ class TestBlankity_To < Minitest::Test
     assert_to_method_works :proc, Blankity::ToProc, proc { 3 }
 
     # Make sure you can pass a block
-    instance = Blankity::To.proc(methods: %i[instance_of?]) { 3 }
+    instance = Blankity::To.proc(with: %i[instance_of?]) { 3 }
     assert_instance_of Blankity::ToProc, instance
     assert_equal 3, instance.to_proc.call
     assert_equal 3, Blankity::To.proc(instance).to_proc.call
   end
 
   def test_range
-    instance = Blankity::To.range(10, 20, true, methods: %i[instance_of?]) {
+    instance = Blankity::To.range(10, 20, true, with: %i[instance_of?]) {
       def hello = 10
     }
 

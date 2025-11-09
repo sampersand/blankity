@@ -18,7 +18,7 @@ class TestBlankity_Classes < Minitest::Test
     # Make sure you can pass keyword arguments
     assert_equal(
       [expected, 5],
-      cls.new(expected, methods: %i[then], hash: true) { def five = hash*0 + 5 }
+      cls.new(expected, with: %i[then], hash: true) { def five = hash*0 + 5 }
          .then { |instance| [instance.__send__(to_method), instance.five] }
     )
   end
@@ -165,12 +165,12 @@ class TestBlankity_Classes < Minitest::Test
     # Make sure you can pass keyword arguments
     assert_equal(
       [10, 20, false, 5],
-      cls.new(10, 20, methods: %i[then], hash: true){ def five = hash*0 + 5 }
+      cls.new(10, 20, with: %i[then], hash: true){ def five = hash*0 + 5 }
          .then { |instance| [instance.begin, instance.end, instance.exclude_end?, instance.five] }
     )
     assert_equal(
       [10, 20, true, 5],
-      cls.new(10, 20, true, methods: %i[then], hash: true){ def five = hash*0 + 5 }
+      cls.new(10, 20, true, with: %i[then], hash: true){ def five = hash*0 + 5 }
          .then { |instance| [instance.begin, instance.end, instance.exclude_end?, instance.five] }
     )
 

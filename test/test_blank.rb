@@ -42,7 +42,7 @@ class TestBlankity_Top < Minitest::Test
   end
 
   def test_initialize_with_methods
-    blank = Blankity::Blank.new methods: %i[inspect ==]
+    blank = Blankity::Blank.new with: %i[inspect ==]
 
     # Make sure we can use the methods
     assert_equal blank, blank
@@ -70,7 +70,7 @@ class TestBlankity_Top < Minitest::Test
     # Make sure you can also supply it in `methods` `eql?` and `hash`
     assert_singleton_methods(
       %i[eql? hash inspect],
-      Blankity::Blank.new(methods: %i[inspect eql?], hash: true)
+      Blankity::Blank.new(with: %i[inspect eql?], hash: true)
     )
   end
 
@@ -85,7 +85,7 @@ class TestBlankity_Top < Minitest::Test
     # Make sure that the methods are assigned first, so they can be used in
     # the block
     cls = nil
-    Blankity::Blank.new(methods: %i[class]) { cls = self.class }
+    Blankity::Blank.new(with: %i[class]) { cls = self.class }
     assert_equal Blankity::Blank, cls
   end
 

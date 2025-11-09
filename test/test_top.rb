@@ -8,4 +8,8 @@ class TestBlankity_Top < Minitest::Test
     assert_empty Blankity::Top.private_instance_methods
     assert_empty Blankity::Top.protected_instance_methods
   end
+
+  def test_it_includes_nothing
+    assert_empty Blankity::Top.included_modules
+  end
 end
