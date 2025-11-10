@@ -1,0 +1,158 @@
+# Generated from lib/blankity/value.rb with RBS::Inline
+
+module Blankity
+  # @rbs generic T
+  class Value[T] < Blank
+    # The underlying value
+    attr_reader __value__: T
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (T, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (T, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+  end
+
+  # A Class which only defines +#to_i+; it implements RBS's +_ToI+ interface.
+  #
+  # @rbs inherits Value[Integer]
+  class ToI < Value[Integer]
+    alias to_i __value__
+  end
+
+  # A Class which exclusively defines +#to_int+; it implements RBS's +_ToInt+ interface.
+  #
+  # @rbs inherits Value[Integer]
+  class ToInt < Value[Integer]
+    alias to_int __value__
+  end
+
+  # A Class which exclusively defines +#to_s+; it implements RBS's +_ToS+ interface.
+  #
+  # @rbs inherits Value[String]
+  class ToS < Value[String]
+    alias to_s __value__
+  end
+
+  # A Class which exclusively defines +#to_str+; it implements RBS's +_ToStr+ interface.
+  #
+  # @rbs inherits Value[String]
+  class ToStr < Value[String]
+    alias to_str __value__
+  end
+
+  # A Class which exclusively defines +#to_a+; it implements RBS's +_ToA[T]+ interface.
+  #
+  # @rbs generic unchecked out T -- Type of elements
+  # @rbs inherits Value[Array[T]]
+  class ToA[unchecked out T] < Value[Array[T]]
+    alias to_a __value__
+  end
+
+  # A Class which exclusively defines +#to_ary+; it implements RBS's +_ToAry[T]+ interface.
+  #
+  # @rbs generic unchecked out T -- Type of elements
+  # @rbs inherits Value[Array[T]]
+  class ToAry[unchecked out T] < Value[Array[T]]
+    alias to_ary __value__
+  end
+
+  # A Class which exclusively defines +#to_h+; it implements RBS's +_ToH[K, V]+ interface.
+  #
+  # @rbs generic unchecked out K -- Type of Key
+  # @rbs generic unchecked out V -- Type of Value
+  # @rbs inherits Value[Hash[K, V]]
+  class ToH[unchecked out K, unchecked out V] < Value[Hash[K, V]]
+    alias to_h __value__
+  end
+
+  # A Class which exclusively defines +#to_hash+; it implements RBS's +_ToHash[K, V]+ interface.
+  #
+  # @rbs generic unchecked out K -- Type of Key
+  # @rbs generic unchecked out V -- Type of Value
+  # @rbs inherits Value[Hash[K, V]]
+  class ToHash[unchecked out K, unchecked out V] < Value[Hash[K, V]]
+    alias to_hash __value__
+  end
+
+  # A Class which exclusively defines +#to_sym+; it implements RBS's +_ToSym+ interface.
+  #
+  # @rbs inherits Value[Symbol]
+  class ToSym < Value[Symbol]
+    alias to_sym __value__
+  end
+
+  # A Class which exclusively defines +#to_r+; it implements RBS's +_ToR+ interface.
+  #
+  # @rbs inherits Value[Rational]
+  class ToR < Value[Rational]
+    alias to_r __value__
+  end
+
+  # A Class which exclusively defines +#to_c+; it implements RBS's +_ToC+ interface.
+  #
+  # @rbs inherits Value[Complex]
+  class ToC < Value[Complex]
+    alias to_c __value__
+  end
+
+  # A Class which exclusively defines +#to_f+; it implements RBS's +_ToF+ interface.
+  #
+  # @rbs inherits Value[Float]
+  class ToF < Value[Float]
+    alias to_f __value__
+  end
+
+  # A Class which exclusively defines +#to_regexp+; it implements RBS's +Regexp::_ToRegexp+ interface.
+  #
+  # @rbs inherits Value[Regexp]
+  class ToRegexp < Value[Regexp]
+    alias to_regexp __value__
+  end
+
+  # A Class which exclusively defines +#to_path+; it implements RBS's +_ToPath+ interface.
+  #
+  # @rbs inherits Value[String]
+  class ToPath < Value[String]
+    alias to_path __value__
+  end
+
+  # A Class which exclusively defines +#to_io+; it implements RBS's +_ToIO+ interface.
+  #
+  # @rbs inherits Value[IO]
+  class ToIO < Value[IO]
+    alias to_io __value__
+  end
+
+  # A Class which exclusively defines +#to_proc+; it implements RBS's +_ToProc+ interface.
+  #
+  # @rbs inherits Value[Proc]
+  class ToProc < Value[Proc]
+    alias to_proc __value__
+  end
+
+  # A Class which defines `#begin`, `#end`, and `#exclude_end?`. It implements RBS's +_Range[T]+
+  # interface.
+  #
+  # @rbs generic out T -- Type to iterate over
+  class Range[out T] < Blank
+    @__begin__: T?
+
+    @__end__: T?
+
+    @__exclude_end__: bool
+
+    # Creates a new instance; any additional arguments or block are passed to {Blank#initialize}.
+    #
+    # @rbs (T?, T?, ?bool, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (T?, T?, ?bool, ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+
+    # @rbs () -> T?
+    def begin: () -> T?
+
+    # @rbs () -> T?
+    def end: () -> T?
+
+    # @rbs () -> bool
+    def exclude_end?: () -> bool
+  end
+end

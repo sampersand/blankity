@@ -18,33 +18,33 @@ module Blankity
 
     # Convenience method to make {ToI}s from +value.to_i+
     #
-    # @rbs (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
-    def self?.i: (_ToI, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+    # @rbs (_ToI, ?with: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
+    def self?.i: (_ToI, ?with: Array[interned], ?hash: bool) ?{ () [self: ToI] -> void } -> ToI
 
     # Convenience method to make {ToInt}s from +value.to_int+
     #
-    # @rbs (int, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
-    def self?.int: (int, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
+    # @rbs (int, ?with: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
+    def self?.int: (int, ?with: Array[interned], ?hash: bool) ?{ () [self: ToInt] -> void } -> ToInt
 
     # Convenience method to make {ToS}s from +value.to_s+
     #
-    # @rbs (_ToS, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
-    def self?.s: (_ToS, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
+    # @rbs (_ToS, ?with: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
+    def self?.s: (_ToS, ?with: Array[interned], ?hash: bool) ?{ () [self: ToS] -> void } -> ToS
 
     # Convenience method to make {ToStr}s from +value.to_str+
     #
-    # @rbs (string, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
-    def self?.str: (string, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
+    # @rbs (string, ?with: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
+    def self?.str: (string, ?with: Array[interned], ?hash: bool) ?{ () [self: ToStr] -> void } -> ToStr
 
     # Convenience method to make {ToA}s from +elements+
     #
-    # @rbs [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
-    def self?.a: [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+    # @rbs [T] (*T, ?with: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
+    def self?.a: [T] (*T, ?with: Array[interned], ?hash: bool) ?{ () [self: ToA[T]] -> void } -> ToA[T]
 
     # Convenience method to make {ToAry}s from +elements+
     #
-    # @rbs [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
-    def self?.ary: [T] (*T, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+    # @rbs [T] (*T, ?with: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
+    def self?.ary: [T] (*T, ?with: Array[interned], ?hash: bool) ?{ () [self: ToAry[T]] -> void } -> ToAry[T]
 
     # Convenience method to make {ToH}s from +hash+
     #
@@ -52,9 +52,9 @@ module Blankity
     # shorthand, but you can't then pass keyword arguments to {ToH}'s constructor. To do so, instead
     # pass in a Hash as a positional argument (e.g. +Blankity::To.h({ 'a' => 'b' }, ...)+)
     #
-    # @rbs [K, V] (_ToH[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+    # @rbs [K, V] (_ToH[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
     #    | [K, V] (**V) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
-    def self?.h: [K, V] (_ToH[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
+    def self?.h: [K, V] (_ToH[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
                | [K, V] (**V) ?{ () [self: ToH[K, V]] -> void } -> ToH[K, V]
 
     # Convenience method to make {ToHash}s from +hash+
@@ -63,46 +63,46 @@ module Blankity
     # shorthand, but you can't then pass keyword arguments to {ToHash}'s constructor. To do so, instead
     # pass in a Hash as a positional argument (e.g. +Blankity::To.hash({ 'a' => 'b' }, ...)+)
     #
-    # @rbs [K, V] (hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+    # @rbs [K, V] (hash[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
     #    | [K, V] (**V) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
-    def self?.hash: [K, V] (hash[K, V], ?methods: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
+    def self?.hash: [K, V] (hash[K, V], ?with: Array[interned], ?hash: bool) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
                   | [K, V] (**V) ?{ () [self: ToHash[K, V]] -> void } -> ToHash[K, V]
 
     # Convenience method to make {ToSym}s from +value.to_sym+
     #
-    # @rbs (_ToSym, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
-    def self?.sym: (_ToSym, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
+    # @rbs (_ToSym, ?with: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
+    def self?.sym: (_ToSym, ?with: Array[interned], ?hash: bool) ?{ () [self: ToSym] -> void } -> ToSym
 
     # Convenience method to make {ToR}s from +value.to_r+
     #
-    # @rbs (_ToR, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
-    def self?.r: (_ToR, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
+    # @rbs (_ToR, ?with: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
+    def self?.r: (_ToR, ?with: Array[interned], ?hash: bool) ?{ () [self: ToR] -> void } -> ToR
 
     # Convenience method to make {ToC}s from +value.to_c+
     #
-    # @rbs (_ToC, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
-    def self?.c: (_ToC, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
+    # @rbs (_ToC, ?with: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
+    def self?.c: (_ToC, ?with: Array[interned], ?hash: bool) ?{ () [self: ToC] -> void } -> ToC
 
     # Convenience method to make {ToF}s from +value.to_f+
     #
-    # @rbs (float, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
-    def self?.f: (float, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
+    # @rbs (float, ?with: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
+    def self?.f: (float, ?with: Array[interned], ?hash: bool) ?{ () [self: ToF] -> void } -> ToF
 
     # Convenience method to make {ToRegexp}s from +value.to_regexp+
     #
-    # @rbs (Regexp::_ToRegexp | Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
-    def self?.regexp: (Regexp::_ToRegexp | Regexp, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
+    # @rbs (Regexp::_ToRegexp | Regexp, ?with: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
+    def self?.regexp: (Regexp::_ToRegexp | Regexp, ?with: Array[interned], ?hash: bool) ?{ () [self: ToRegexp] -> void } -> ToRegexp
 
     # Convenience method to make {ToPath}s from +value.to_path+, or +Kernel#String(value)+
     # if +value+ doesn't define +#to_path+.
     #
-    # @rbs (path, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
-    def self?.path: (path, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
+    # @rbs (path, ?with: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
+    def self?.path: (path, ?with: Array[interned], ?hash: bool) ?{ () [self: ToPath] -> void } -> ToPath
 
     # Convenience method to make {ToIO}s from +value.to_io+
     #
-    # @rbs (io, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
-    def self?.io: (io, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
+    # @rbs (io, ?with: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
+    def self?.io: (io, ?with: Array[interned], ?hash: bool) ?{ () [self: ToIO] -> void } -> ToIO
 
     # Convenience method to make {ToProc}s from the supplied block, or +proc+ if no block is given.
     #
@@ -110,14 +110,14 @@ module Blankity
     # shorthand, but then you can't pass a block to {ToProc}'s constructor. To so do, instead pass
     # the block as a positional parameter (eg +Blankity::To.proc(proc { ... }) { ... }+)
     #
-    # @rbs (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
-    #    | (?methods: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
-    def self?.proc: (_ToProc, ?methods: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
-                  | (?methods: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
+    # @rbs (_ToProc, ?with: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
+    #    | (?with: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
+    def self?.proc: (_ToProc, ?with: Array[interned], ?hash: bool) ?{ () [self: ToProc] -> void } -> ToProc
+                  | (?with: Array[interned], ?hash: bool) { (?) -> untyped } -> ToProc
 
     # Convenience method to make {Range}s from the supplied arguments.
     #
-    # @rbs [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
-    def self?.range: [T] (T?, T?, ?bool, ?methods: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
+    # @rbs [T] (T?, T?, ?bool, ?with: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
+    def self?.range: [T] (T?, T?, ?bool, ?with: Array[interned], ?hash: bool) ?{ () [self: Range[T]] -> void } -> Range[T]
   end
 end

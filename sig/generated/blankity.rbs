@@ -1,4 +1,8 @@
 # Generated from lib/blankity.rb with RBS::Inline
 
 module Blankity
+  # Shorthand constructor {Blankity::Blank}.
+  #
+  # @rbs (?with: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
+  def self.blank: (?with: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
 end

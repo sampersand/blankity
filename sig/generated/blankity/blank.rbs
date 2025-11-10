@@ -11,7 +11,7 @@ module Blankity
   # - Private methods are not undefined, as each one of them is expected to be present (most of them
   #   are hooks, eg +singleton_method_added+), and aren't easily accessible from external classes.
   #
-  # To make using +Blank+ easier, its constructor allows you to pass a +methods:+ keyword argument,
+  # To make using +Blank+ easier, its constructor allows you to pass a +with:+ keyword argument,
   # which will define singleton methods based on {Object}.
   class Blank < BasicObject
     def __define_singleton_method__: (interned name, Method | UnboundMethod | Proc method) -> Symbol
@@ -19,12 +19,13 @@ module Blankity
 
     def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
 
+    # Alias for `new`
     alias self.blank self.new
 
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
-    # @param methods [Array[interned]] a list of {Object} methods to define on +self+.
-    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +methods+ so the resulting
+    # @param with [Array[interned]] a list of {Object} methods to define on +self+.
+    # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +with+ so the resulting
     #                    type can be used as a key in +Hash+es
     # @yield [] if a block is given, runs it via +__instance_exec__+.
     #
@@ -33,17 +34,12 @@ module Blankity
     #   Blankity::Blank.new
     #
     #   # Include `Object#inspect`, so we can print with `p`
-    #   p Blankity::Blank.new(methods: %i[inspect])
+    #   p Blankity::Blank.new(with: %i[inspect])
     #
     #   # Define a singleton method
     #   p Blankity::Blank.new{ def cool?(other) = other == 3 }.cool?(3) #=> true
     #
-    # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-    def initialize: (?methods: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    # @rbs (?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize: (?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
   end
-
-  # Shorthand constructor {Blankity::Blank}.
-  #
-  # @rbs (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
-  def self.blank: (?methods: Array[interned], ?hash: bool) ?{ () [self: Blank] -> void } -> Blank
 end

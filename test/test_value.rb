@@ -3,14 +3,22 @@
 require 'test_helper'
 
 class TestBlankity_Classes < Minitest::Test
+  def test_value_class
+    # Make sure it inherits from Blank, and includes no modules
+    assert_equal Blankity::Blank, Blankity::Value.superclass
+    assert_empty Blankity::Value.included_modules
+    assert_equal %i[__value__ __value__=], Blankity::Value.instance_methods(false).sort
+    assert_equal %i[initialize], Blankity::Value.private_instance_methods(false)
+  end
+
   def assert_basic_class_works(cls, to_method, expected)
     # Make sure it inherits from Blank, and includes no modules
-    assert_equal Blankity::Blank, cls.superclass
+    assert_equal Blankity::Value, cls.superclass
     assert_empty cls.included_modules
 
     # Make sure it defines just the method we're expecting
     assert_equal [to_method], cls.instance_methods(false)
-    assert_equal %i[initialize], cls.private_instance_methods(false)
+    assert_empty cls.private_instance_methods(false)
 
     # Make sure you can call the method
     assert_equal expected, cls.new(expected).__send__(to_method)
