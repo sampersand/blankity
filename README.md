@@ -53,22 +53,22 @@ puts 'hello'.gsub(/[eo]/, Blankity::To.hash('e' => 'E', 'o' => 'O'))
 #=> hEllO
 ```
 
-The `Blankity::To` module is also a mixin!
+You can include the `Blankity::To` module to get theeh `theo` method!
 ```ruby
 extend Blankity::To
 
-puts 'hello' + str(' world')
-exit int(0)
+puts 'hello' + to.str(' world')
+exit to.int(0)
 
 # Let's get crazy!
 system(
-  hash(
-    str('HELLO', hash: true) => str('WORLD')
+  to.hash(
+    to.str('HELLO', hash: true) => to.str('WORLD')
   ),
-  ary(str('sh'), str('-sh')),
-  str('-c'),
-  str('echo $0 $HELLO $PWD'),
-  chdir: path('/'),
+  to.ary(to.str('sh'), to.str('-sh')),
+  to.str('-c'),
+  to.str('echo $0 $HELLO $PWD'),
+  chdir: to.path('/'),
 )
 ```
 
