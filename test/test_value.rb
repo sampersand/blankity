@@ -7,7 +7,7 @@ class TestBlankity_Classes < Minitest::Test
     # Make sure it inherits from Blank, and includes no modules
     assert_equal Blankity::Blank, Blankity::Value.superclass
     assert_empty Blankity::Value.included_modules
-    assert_equal %i[__value__ __value__=], Blankity::Value.instance_methods(false).sort
+    assert_equal %i[__value__], Blankity::Value.instance_methods(false)
     assert_equal %i[initialize], Blankity::Value.private_instance_methods(false)
   end
 

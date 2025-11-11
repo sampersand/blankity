@@ -20,8 +20,10 @@ module Blankity
     # @rbs!
     #   def __define_singleton_method__: (interned name, Method | UnboundMethod | Proc method) -> Symbol
     #                                  | (interned name) { (?) [self: self] -> untyped } -> Symbol
-    #   def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
     define_method :__define_singleton_method__, ::Kernel.instance_method(:define_singleton_method)
+
+    # @rbs!
+    #   def __instance_exec__: [T] (*untyped, **untyped) { (?) [self: self] -> T } -> T
     alias_method :__instance_exec__, :instance_exec # Use `alias_method` instead of `alias` so rbs-inline won't pick it up
 
     # Remove every other public and protected method that we inherit, except for `__xyz__` methods
