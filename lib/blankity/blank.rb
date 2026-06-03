@@ -66,6 +66,9 @@ module Blankity
 
       # Assign all instance variables
       vars.each do |key, value|
+        key = defined?(key.to_sym) ? key.to_sym : key.to_str
+        key = "@#{key}" unless key.start_with? '@'
+
         ::Kernel.instance_method(:instance_variable_set).bind_call(self, key, value)
       end
 

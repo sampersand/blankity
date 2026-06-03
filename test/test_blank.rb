@@ -75,7 +75,8 @@ class TestBlankity_Top < Minitest::Test
   end
 
   def test_initialize_with_vars
-    blank = Blankity::Blank.new(vars: { :@x => 3, :@y => 4 })
+    y = 4
+    blank = Blankity::Blank.new(vars: { :@x => 3, y: })
 
     assert_equal 3, ::Kernel.instance_method(:instance_variable_get).bind_call(blank, :@x)
     assert_equal 4, ::Kernel.instance_method(:instance_variable_get).bind_call(blank, :@y)
