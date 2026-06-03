@@ -38,6 +38,7 @@ module Blankity
 
     # Creates a new {BlankValue}, and defining singleton methods depending on the parameters
     #
+    # @param vars [Hash[interned, untyped]] an array of instance variables to define on +self+.
     # @param with [Array[interned]] a list of {Object} methods to define on +self+.
     # @param hash [bool] convenience argument, adds +hash+ and +eql?+ to +with+ so the resulting
     #                    type can be used as a key in +Hash+es
@@ -53,14 +54,19 @@ module Blankity
     #   # Define a singleton method
     #   p Blankity::Blank.new{ def cool?(other) = other == 3 }.cool?(3) #=> true
     #
-    # @rbs (?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
-    def initialize(with: [], hash: false, &block)
+    # @rbs (?vars: Hash[interned, untyped], ?with: Array[interned], ?hash: bool) ?{ () [self: instance] -> void } -> void
+    def initialize(vars: {}, with: [], hash: false, &block)
       # If `hash` is supplied, then add `hash` and `eql?` to the list of methods to define
       with |= %i[hash eql?] if hash
 
       # Define any object methods requested by the end-user
       with.each do |method|
         __define_singleton_method__(method, ::Object.instance_method(method).bind(self))
+      end
+
+      # Assign all instance variables
+      vars.each do |key, value|
+        ::Kernel.instance_method(:instance_variable_set).bind_call(self, key, value)
       end
 
       # If a block's provided, then `instance_exec`

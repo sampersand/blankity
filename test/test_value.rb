@@ -161,7 +161,7 @@ class TestBlankity_Classes < Minitest::Test
     assert_empty cls.included_modules
 
     # Make sure it defines just the methods we're expecting
-    assert_equal %i[begin end exclude_end?], cls.instance_methods(false)
+    assert_equal %i[begin end exclude_end?], cls.instance_methods(false).sort
     assert_equal %i[initialize], cls.private_instance_methods(false)
 
     # Make sure you can call the methods

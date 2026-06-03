@@ -62,7 +62,7 @@ class TestBlankity_Top < Minitest::Test
     assert_singleton_methods %i[eql? hash], blank
 
     # Make sure `.eql?` and `.hash` do what's expected
-    assert_operator blank, :eql?, blank
+    assert blank.eql? blank
     assert_instance_of Integer, blank.hash
   end
 
@@ -72,6 +72,13 @@ class TestBlankity_Top < Minitest::Test
       %i[eql? hash inspect],
       Blankity::Blank.new(with: %i[inspect eql?], hash: true)
     )
+  end
+
+  def test_initialize_with_vars
+    blank = Blankity::Blank.new(vars: { :@x => 3, :@y => 4 })
+
+    assert_equal 3, ::Kernel.instance_method(:instance_variable_get).bind_call(blank, :@x)
+    assert_equal 4, ::Kernel.instance_method(:instance_variable_get).bind_call(blank, :@y)
   end
 
   def test_initialize_with_block
